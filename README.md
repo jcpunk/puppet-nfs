@@ -1,10 +1,6 @@
 # nfs
 
-Welcome to your new module. A short overview of the generated parts can be found
-in the [PDK documentation][1].
-
-The README template below provides a starting point with details about what
-information to include in your README.
+Manage NFS client/server elements with modern nfs-utils.
 
 ## Table of Contents
 
@@ -19,99 +15,233 @@ information to include in your README.
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your
-module does and what kind of problems users can solve with it.
+The nfs-utils version 2 utilities can take most of their settings from the
+`/etc/nfs.conf`.  This module attempts to make setting those options easier.
 
-This should be a fairly short description helps the user decide if your module
-is what they want.
+Similiarly, `mount.nfs` can get options from `/etc/nfsmount.conf`.
+
+Additionally, an easy way to populate `/etc/idmapd.conf` is provided.
+
+This module also provides an interface to setup NFS exports.
+
+Folks wanting to mount NFS shares should use the `mount` type.
 
 ## Setup
 
-### What nfs affects **OPTIONAL**
+### What nfs affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+This module will manage the NFS packages, configs, exports, and services.
 
-If there's more that they should know about, though, this is the place to
-mention:
+### Setup Requirements
 
-* Files, packages, services, or operations that the module will alter, impact,
-  or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section here.
+See the `metadata.json` for module requirements.
 
 ### Beginning with nfs
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most basic
-use of the module.
+By default this module will disable client and server elements.  You'll need
+to decide which bits you want enabled on what hosts.
+
+This module should work well with hiera or a feature rich ENC.
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your
-users how to use your module to solve problems, and be sure to include code
-examples. Include three to five examples of the most important or common tasks a
-user can accomplish with your module. Show users how to accomplish more complex
-tasks that involve different types, classes, and functions working in tandem.
+Setup a client permitting NFSv3 and NFSv4 along with Kerberos security:
 
-## Reference
-
-This section is deprecated. Instead, add reference information to your code as
-Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your
-module. For details on how to add code comments and generate documentation with
-Strings, see the [Puppet Strings documentation][2] and [style guide][3].
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the
-root of your module directory and list out each of your module's classes,
-defined types, facts, functions, Puppet tasks, task plans, and resource types
-and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-* The data type, if applicable.
-* A description of what the element does.
-* Valid values, if the data type doesn't make it obvious.
-* Default value, if any.
-
-For example:
-
+```ruby
+class {'nfs':
+  client => true,
+  client_nfsv3_support => true,
+  client_nfsv4_support => true,
+  client_kerberos_support => true,
+}
 ```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
+or hiera
+```yaml
+nfs::client: true
+nfs::client_nfsv3_support: true
+nfs::client_nfsv4_support: true
+nfs::client_kerberos_support: true
 ```
+
+Setup host as a client and a server:
+```ruby
+class {'nfs':
+  client => true,
+  server => true,
+}
+```
+or hiera
+```yaml
+nfs::client: true
+nfs::server: true
+```
+
+Setup a server permitting NFSv3 and NFSv4 along with Kerberos security and GSSProxy.
+Also setup two exports, but leave any unmanaged files in `/etc/exports.d/`
+NOTE: if you drop your own files in `/etc/exports.d/` you should `notify`
+      one of: `Class['nfs']` `Class['nfs::service']` `Class['nfs::service::exportfs']
+```ruby
+class {'nfs':
+  use_gssproxy => true,
+
+  server => true,
+  server_nfsv3_support => true,
+  server_nfsv4_support => true,
+  server_kerberos_support => true,
+
+  exportfs_arguments => [ '-a', ],
+  purge_unmanaged_exports => false,
+  exports => {
+    '/export/path' => {
+      'clients' => {
+        '127.0.0.1' => ['rw', 'no_subtree_check'],
+        '*.example.com' => ['rw', 'sec=krb5', 'no_subtree_check'],
+      }
+    },
+    'Detailed Example' => {
+      'export_path' => '/my/nfs/path',
+      'config_file' => '/etc/exports.d/puppet.exports',
+      'comment' => "Some Optional Free Text",
+      'clients' => {
+        '127.0.0.1' => ['rw', 'no_subtree_check'],
+        '*.example.com' => ['rw', 'sec=krb5', 'no_subtree_check'],
+      }
+    }
+  }
+}
+```
+or hiera
+```yaml
+nfs::use_gssproxy: true
+nfs::server: true
+nfs::server_nfsv3_support: true
+nfs::server_nfsv4_support: true
+nfs::server_kerberos_support: true
+nfs::purge_unmanaged_exports: false
+nfs::exportfs_arguments: [ '-a' ]
+
+# setup merge so we can extend this at another level
+lookup_options:
+  nfs::exports:
+    merge:
+      strategy: deep
+
+nfs::exports:
+  '/export/path':
+    clients:
+      '127.0.0.1':
+        - rw
+        - no_subtree_check
+      '*.example.com':
+        - rw
+        - 'sec=krb5'
+        - no_subtree_check
+  'Detailed Example':
+    export_path: /my/nfs/path
+    config_file: /etc/exports.d/puppet.exports
+    comment: Some Optional Free Text
+        clients:
+      '127.0.0.1':
+        - rw
+        -no_subtree_check
+      '*.example.com':
+        - rw
+        - 'sec=krb5'
+        - no_subtree_check
+```
+
+Set specific config settings for individual services
+NOTE: if you drop your own files in `/etc/nfs.conf.d/` you should `notify`
+      one of: `Class['nfs']` `Class['nfs::service']`
+NOTE: if you drop your own files in `/etc/nfsmount.conf.d/` you should `notify`
+      any relevant NFS mounts you've specified.
+```ruby
+class {'nfs':
+  client => true,
+  server => true,
+  rpcbind_config_opt_values => ['-a', '-s', '-l'],
+  idmapd_config_hash => {
+    'General' => {
+      'Domain' => 'something',
+      'Reformat-Group' => 'both',
+    },
+    'Mapping' => {
+      'Nobody-User' => 'nouser',
+    },
+  },
+  nfs_conf_hash => {
+    'lockd' => {
+      'port' => 32803,
+      'udp-port' => 32769
+    },
+    'mountd' => {
+      'port' => 892
+    },
+    'statd' => {
+      'port' => 662,
+      'outgoing-port' => 2020
+    },
+  },
+  nfsmount_conf_hash => {
+    'hostname.example.com' => {
+      'Defaultvers' => 4,
+    },
+    '/my/mnt/point' => {
+      'Defaultvers' => 4,
+    },
+  }
+}
+```
+or hiera
+```yaml
+nfs::client: true
+nfs::server: true
+nfs::rpcbind_config_opt_values:
+  - '-a'
+  - '-s'
+  - '-l'
+
+# setup merge so we can extend this at another level
+lookup_options:
+  nfs::idmapd_config_hash:
+    merge:
+      strategy: deep
+  nfs::nfs_conf_hash:
+    merge:
+      strategy: deep
+  nfs::nfsmount_conf_hash:
+    merge:
+      strategy: deep
+
+nfs::idmapd_config_hash:
+  General:
+    Domain: something
+    Reformat-Group: both
+  Mapping:
+    Nobody-User: nouser
+nfs::nfs_conf_hash:
+  lockd:
+    port: 32803
+    udp-port: 32769
+  mountd:
+    port: 982
+  statd:
+    port: 662
+    outgoing-port: 2020
+nfs::nfsmount_conf_hash:
+  hostname.example.com:
+    Defaultvers: 4
+  '/my/mnt/point':
+    Defaultvers: 4
+```
+
+Additional examples are provided in the examples directory.
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other
-warnings.
+This primarily targeted at RHEL compatible systems with nfs-utils version 2.  Limited
+support for RHEL7 and Debian style systes are provided.
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing
-to your project and how they should submit their work.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel are
-necessary or important to include here. Please use the `##` header.
-
-[1]: https://puppet.com/docs/pdk/latest/pdk_generating_modules.html
-[2]: https://puppet.com/docs/puppet/latest/puppet_strings.html
-[3]: https://puppet.com/docs/puppet/latest/puppet_strings_style.html
+This project uses pdk and is hosted at the listed repo.

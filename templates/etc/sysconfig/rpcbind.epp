@@ -1,0 +1,12 @@
+<%- |
+  String $key = 'RPCBIND_ARGS',
+  Array $values = [],
+| -%>
+#
+# This file managed by Puppet - DO NOT EDIT
+#
+# This file was selected by nfs::rpcbind_config_opt_file
+# The option was selected by nfs::rpcbind_config_opt_key
+# The value was selected by join(sort(nfs::rpcbind_config_opt_values), ' ')
+#
+<%= $key %>="<%= join(sort($values), ' ') %>"

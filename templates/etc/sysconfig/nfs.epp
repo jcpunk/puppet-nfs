@@ -1,0 +1,20 @@
+<%- |
+  String $secure_nfs = 'no',
+  String $gss_use_proxy = 'no',
+| -%>
+#
+# This file managed by Puppet - DO NOT EDIT
+#
+# Where possible you should instead set values in /etc/nfs.conf
+# via the $nfs::nfs_conf_hash argument to the nfs class.
+# Things which cannot be set that way should be filed as upstream bugs.
+#
+# This file was selected class by nfs::config::nfs_conf (via nfs)
+# The values are set based on requested kerberos and gssproxy support.
+#
+
+# Older EL7 systems require this value
+SECURE_NFS='<%= secure_nfs %>'
+
+# EL7 doesn't support setting this via /etc/nfs.conf, EL8 does.
+GSS_USE_PROXY='<%= gss_use_proxy %>'

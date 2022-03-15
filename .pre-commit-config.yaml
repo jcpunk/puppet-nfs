@@ -1,0 +1,13 @@
+repos:
+- repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
+  rev: v2.1.0
+  hooks:
+    - id: epp-validate
+    - id: erb-validate
+    - id: puppet-lint
+      args:
+        - --fail-on-warnings
+        - --no-80chars-check
+    - id: puppet-validate
+    - id: r10k-validate
+    - id: ruby-validate

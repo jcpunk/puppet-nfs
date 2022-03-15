@@ -1,0 +1,17 @@
+---
+nfs::server_packages:
+  - nfs-common
+  - nfs-kernel-server
+  - nfs4-acl-tools
+
+nfs::client_packages:
+  - nfs-common
+  - nfs4-acl-tools
+
+nfs::rpcbind_config_opt_file: /etc/default/rpcbind
+nfs::rpcbind_config_opt_key: OPTIONS
+
+nfs::vendor_idmapd_config_hash:
+  Mapping:
+    Nobody-Group: nogroup
+...

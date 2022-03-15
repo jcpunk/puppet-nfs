@@ -3,4 +3,7 @@
 ---
 fixtures:
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+    concat: "puppetlabs/concat"
+    gssproxy: "jcpunk/gssproxy"
+    stdlib: "puppetlabs/stdlib"
+    systemd: "puppet/systemd"

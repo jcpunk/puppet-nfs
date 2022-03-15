@@ -1,0 +1,43 @@
+<%- |
+  Hash[String, Variant[Hash[String, Data], Undef]] $nfsmount_conf = { 'NFSMount_Global_Options' => { 'Defaultvers' => 4, 'Nfsvers' => undef }}
+| -%>
+#
+# This file managed by Puppet - DO NOT EDIT
+#
+# This file was selected by nfs::nfsmount_conf_file,
+# Parameters can be set via nfs::nfsmount_conf_hash
+#
+[ NFSMount_Global_Options ]
+<% if $nfsmount_conf['NFSMount_Global_Options'] { -%>
+<% $nfsmount_conf['NFSMount_Global_Options'].keys.sort.each | $key | { -%>
+<% if $nfsmount_conf['NFSMount_Global_Options'][$key] != undef { -%>
+<%= $key %>=<%= $nfsmount_conf['NFSMount_Global_Options'][$key] %>
+<% } else { -%>
+# <%= $key %>=
+<% } -%>
+<% } -%>
+<% } -%>
+<% $nfsmount_conf.keys.sort.each | $section | { -%>
+<% if $section != 'NFSMount_Global_Options' { -%>
+
+<% if $section =~ '^/.*' { -%>
+[ MountPoint "<%= $section %>" ]
+<% $nfsmount_conf[$section].keys.sort.each | $key | { -%>
+<% if $nfsmount_conf[$section][$key] != undef { -%>
+<%= $key %>=<%= $nfsmount_conf[$section][$key] %>
+<% } else { -%>
+# <%= $key %>=
+<% } -%>
+<% } -%>
+<% } else { -%>
+[ Server "<%= downcase($section) %>" ]
+<% $nfsmount_conf[$section].keys.sort.each | $key | { -%>
+<% if $nfsmount_conf[$section][$key] != undef { -%>
+<%= $key %>=<%= $nfsmount_conf[$section][$key] %>
+<% } else { -%>
+# <%= $key %>=
+<% } -%>
+<% } -%>
+<% } -%>
+<% } -%>
+<% } -%>

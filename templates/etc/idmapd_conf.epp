@@ -1,0 +1,20 @@
+<%- |
+  Hash[String, Hash[String, Data]] $idmapd_config = { 'General' => { 'Domain' => undef }}
+| -%>
+#
+# This file managed by Puppet - DO NOT EDIT
+#
+# This file was selected by nfs::idmapd_config_file
+# Parameters can be set via nfs::idmapd_config_hash
+#
+<% $idmapd_config.each | $section, $elements | { -%>
+
+[<%= $section %>]
+<% $elements.keys.sort.each | $key | { -%>
+<% if $elements[$key] != undef { -%>
+<%= $key %>=<%= $elements[$key] %>
+<% } else { -%>
+# <%= $key %>=
+<% } -%>
+<% } -%>
+<% } -%>

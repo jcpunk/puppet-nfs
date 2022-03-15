@@ -1,0 +1,21 @@
+<%- |
+  Hash[String, Variant[Hash[String, Data], Undef]] $nfs_conf = { 'nfsd' => { 'vers3' => 'no', 'vers4' => 'no' }}
+| -%>
+#
+# This file managed by Puppet - DO NOT EDIT
+#
+# This file was selected by nfs::nfs_conf_file
+# Parameters can be set via nfs::nfs_conf_hash
+# and nfs::server_nfsv3_support nfs::server_nfsv4_support
+#
+<% $nfs_conf.each | $section, $elements | { -%>
+
+[<%= $section %>]
+<% $elements.keys.sort.each | $key | { -%>
+<% if $elements[$key] != undef { -%>
+<%= $key %>=<%= $elements[$key] %>
+<% } else { -%>
+# <%= $key %>=
+<% } -%>
+<% } -%>
+<% } -%>

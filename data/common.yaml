@@ -1,0 +1,291 @@
+---
+nfs::client: false
+nfs::server: false
+
+nfs::client_nfsv3_support: true
+nfs::client_nfsv4_support: true
+nfs::client_kerberos_support: true
+
+nfs::server_nfsv3_support: false
+nfs::server_nfsv4_support: true
+nfs::server_kerberos_support: true
+
+nfs::manage_services: true
+
+nfs::use_gssproxy: false
+
+nfs::manage_server_packages: true
+nfs::server_packages:
+  - nfs-utils
+  - nfs4-acl-tools
+
+nfs::server_services:
+  - nfs-server.service
+  - nfs-mountd.service
+
+nfs::server_kerberos_services:
+  - rpc-gssd.service
+
+nfs::server_v3_helper_services:
+  - rpcbind.socket
+  - rpc-statd.service
+  - rpc-statd-notify.service
+
+nfs::server_v4_helper_services:
+  - nfs-idmapd.service
+  - nfsdcld.service
+
+nfs::manage_client_packages: true
+nfs::client_packages:
+  - nfs-utils
+  - nfs4-acl-tools
+
+nfs::client_services:
+  - nfs-client.target
+
+nfs::client_kerberos_services:
+  - rpc-gssd.service
+
+nfs::client_v3_helper_services:
+  - rpcbind.socket
+
+nfs::client_v4_helper_services:
+  - nfs-blkmap.service
+
+nfs::rpcbind_config_opt_file: /etc/sysconfig/rpcbind
+nfs::rpcbind_config_opt_key: RPCBIND_ARGS
+nfs::rpcbind_config_opt_values: []
+
+nfs::exports_file: /etc/exports
+nfs::exports_d: /etc/exports.d
+nfs::purge_unmanaged_exports: true
+nfs::exports: {}
+
+nfs::exportfs: "/usr/sbin/exportfs"
+nfs::exportfs_arguments: ['-a', '-r', '-v']
+
+nfs::idmapd_config_file: /etc/idmapd.conf
+nfs::idmapd_config_hash:
+  General:
+    Domain: "%{::domain}"
+
+nfs::nfs_conf_file: /etc/nfs.conf
+nfs::nfs_conf_d: /etc/nfs.conf.d
+nfs::purge_unmanaged_nfs_conf_d: true
+nfs::nfs_conf_hash:
+  nfsd: {}
+
+nfs::nfsmount_conf_file: /etc/nfsmount.conf
+nfs::nfsmount_conf_d: /etc/nfsmount.conf.d
+nfs::purge_unmanaged_nfsmount_conf_d: true
+nfs::nfsmount_conf_hash:
+  NFSMount_Global_Options: {}
+
+nfs::gssproxy_services:
+  'service/nfs-client':
+    settings:
+       mechs: krb5
+       cred_store:
+         - keytab:/etc/krb5.keytab
+         - ccache:FILE:/var/lib/gssproxy/clients/krb5cc_%U
+         - client_keytab:/var/lib/gssproxy/clients/%U.keytab
+       cred_usage:  initiate
+       allow_any_uid: 'yes'
+       trusted: 'yes'
+       euid: 0
+
+  'service/nfs-server':
+    settings:
+      mechs: krb5
+      socket: /run/gssproxy.sock
+      cred_store: keytab:/etc/krb5.keytab
+      trusted: 'yes'
+      kernel_nfsd: 'yes'
+      euid: 0
+
+# defaults we write out as defaults
+# merge with any OS specific vendor settings
+# End User changes should be in the non-vendor param
+lookup_options:
+  nfs::vendor_nfs_conf_hash:
+    merge:
+      strategy: deep
+  nfs::vendor_nfsmount_conf_hash:
+    merge:
+      strategy: deep
+  nfs::vendor_idmapd_config_hash:
+    merge:
+      strategy: deep
+
+nfs::vendor_nfs_conf_hash:
+  general:
+    pipefs-directory: NULL
+  exports:
+    rootdir: NULL
+  exportd:
+    cache-use-ipaddr: NULL
+    debug: NULL
+    manage-gids: NULL
+    state-directory-path: NULL
+    threads: NULL
+    ttl: NULL
+  exportfs:
+    debug: NULL
+  gssd:
+    avoid-dns: NULL
+    cancel-timed-out-upcalls: NULL
+    context-timeout: NULL
+    cred-cache-directory: NULL
+    keytab-file: NULL
+    limit-to-legacy-enctypes: NULL
+    pipefs-directory: NULL
+    preferred-realm: NULL
+    rpc-timeout: NULL
+    rpc-verbosity: NULL
+    set-home: NULL
+    use-gss-proxy: NULL
+    use-memcache: NULL
+    use-machine-creds: NULL
+    upcall-timeout: NULL
+    verbosity: NULL
+  lockd:
+    port: NULL
+    udp-port: NULL
+  mountd:
+    cache-use-ipaddr: NULL
+    debug: NULL
+    descriptors: NULL
+    ha-callout: NULL
+    manage-gids: NULL
+    port: NULL
+    reverse-lookup: NULL
+    state-directory-path: NULL
+    threads: NULL
+    ttl: NULL
+  nfsdcld:
+    debug: NULL
+    storagedir: NULL
+  nfsdcltrack:
+    debug: NULL
+    storagedir: NULL
+  nfsd:
+    debug: NULL
+    grace-time: NULL
+    host: NULL
+    lease-time: NULL
+    port: NULL
+    threads: NULL
+    rdma: "yes"
+    rdma-port: 20049
+    udp: "no"
+    tcp: "yes"
+    vers2: "no"
+    vers3: "no"
+    vers4: "no"
+  statd:
+    debug: NULL
+    ha-callout: NULL
+    name: NULL
+    no-notify: NULL
+    port: NULL
+    outgoing-port: NULL
+    state-directory-path: NULL
+  sm-notify:
+    debug: NULL
+    force: NULL
+    lift-grace: NULL
+    outgoing-addr: NULL
+    outgoing-port: NULL
+    retry-time: NULL
+  svcgssd:
+    principal: NULL
+
+# defaults we write out as defaults
+#  just set what you want different on your mount
+nfs::vendor_nfsmount_conf_hash:
+  NFSMount_Global_Options:
+    Defaultvers: 4
+    Nfsvers: NULL
+    Defaultproto: NULL
+    Proto: NULL
+    Retrans: NULL
+    Retry: NULL
+    acregmin: NULL
+    acregmax: NULL
+    acdirmin: NULL
+    acdirmax: NULL
+    Acl: NULL
+    Ac: NULL
+    Cto: NULL
+    Background: NULL
+    Hard: NULL
+    Lock: NULL
+    Rdirplus: NULL
+    Rsize: NULL
+    Wsize: NULL
+    Bsize: NULL
+    Sloppy: NULL
+    Sharecache: NULL
+    Timeo: NULL
+    Port: NULL
+    Lookupcache: NULL
+    mountport: NULL
+    mountproto: NULL
+    mountvers: NULL
+    mounthost: NULL
+    noatime: NULL
+
+nfs::vendor_idmapd_config_hash:
+  General:
+    Verbosity: NULL
+    Domain: NULL
+    No-Strip: NULL
+    Reformat-Group: NULL
+    Local-Realms: NULL
+  Mapping:
+    Nobody-User: nobody
+    Nobody-Group: nobody
+  Translation:
+    Method: NULL
+    GSS-Methods: NULL
+  Static:
+    principal@REALM: NULL
+  REGEX:
+    User-Regex: NULL
+    Group-Regex: NULL
+    Prepend-Before-User: NULL
+    Append-After-User: NULL
+    Prepend-Before-Group: NULL
+    Append-After-Group: NULL
+    Group-Name-Prefix: NULL
+    Group-Name-No-Prefix-Regex: NULL
+  UMICH_SCHEMA:
+    LDAP_server: NULL
+    LDAP_base: NULL
+    LDAP_people_base: NULL
+    LDAP_group_base: NULL
+    LDAP_canonicalize_name: NULL
+    LDAP_follow_referrals: NULL
+    LDAP_use_ssl: NULL
+    LDAP_ca_cert: NULL
+    LDAP_tls_reqcert: NULL
+    LDAP_timeout_seconds: NULL
+    LDAP_sasl_mech: NULL
+    LDAP_realm: NULL
+    LDAP_sasl_authcid: NULL
+    LDAP_sasl_authzid: NULL
+    LDAP_sasl_secprops: NULL
+    LDAP_sasl_canonicalize: NULL
+    LDAP_sasl_krb5_ccname: NULL
+    NFSv4_person_objectclass: NULL
+    NFSv4_name_attr: NULL
+    NFSv4_uid_attr: NULL
+    GSS_principal_attr: NULL
+    NFSv4_acctname_attr: NULL
+    NFSv4_group_objectclass: NULL
+    NFSv4_gid_attr: NULL
+    NFSv4_group_attr: NULL
+    LDAP_use_memberof_for_groups: NULL
+    NFSv4_member_attr: NULL
+    NFSv4_grouplist_filter: NULL
+...

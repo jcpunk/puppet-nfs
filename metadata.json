@@ -4,28 +4,37 @@
   "author": "Pat Riehecky",
   "summary": "Manage NFS client and server services",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/jcpunk/puppet-nfs",
+  "project_page": "https://github.com/jcpunk/puppet-nfs",
+  "issues_url": "https://github.com/jcpunk/puppet-nfs/issues",
   "dependencies": [
-
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 4.2.0 < 8.0.0"
+    },
+    {
+      "name": "puppet/systemd",
+      "version_requirement": ">= 3.2.0 < 4.0.0"
+    },
+    {
+      "name": "jcpunk/gssproxy",
+      "version_requirement": ">= 0.1.1 < 0.2.0"
+    }
   ],
   "operatingsystem_support": [
     {
-      "operatingsystem": "CentOS"
-    },
-    {
-      "operatingsystem": "OracleLinux"
-    },
-    {
-      "operatingsystem": "RedHat"
-    },
-    {
-      "operatingsystem": "Scientific",
+      "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8",
+        "9"
       ]
     },
     {
-      "operatingsystem": "Fedora"
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "11"
+      ]
     }
   ],
   "requirements": [
