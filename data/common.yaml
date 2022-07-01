@@ -27,7 +27,6 @@ nfs::server_kerberos_services:
   - rpc-gssd.service
 
 nfs::server_v3_helper_services:
-  - rpcbind.socket
   - rpc-statd.service
   - rpc-statd-notify.service
 
@@ -46,8 +45,7 @@ nfs::client_services:
 nfs::client_kerberos_services:
   - rpc-gssd.service
 
-nfs::client_v3_helper_services:
-  - rpcbind.socket
+nfs::client_v3_helper_services: []
 
 nfs::client_v4_helper_services:
   - nfs-blkmap.service

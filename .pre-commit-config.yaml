@@ -8,6 +8,4 @@ repos:
       args:
         - --fail-on-warnings
         - --no-80chars-check
-    - id: puppet-validate
     - id: r10k-validate
-    - id: ruby-validate

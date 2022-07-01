@@ -49,6 +49,8 @@ class nfs::service::client (
     }
 
     if $client_nfsv3_support {
+      ensure_resource('service', 'rpcbind.socket', { 'ensure' => 'running', 'enable' => true, })
+
       Service[$client_v3_helper_services] {
         ensure => 'running',
         enable => true,

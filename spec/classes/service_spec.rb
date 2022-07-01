@@ -10,7 +10,7 @@ describe 'nfs::service' do
       describe 'with defaults' do
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(10) }
+        it { is_expected.to have_service_resource_count(9) }
       end
 
       describe 'with manage_services' do
@@ -22,7 +22,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(10) }
+        it { is_expected.to have_service_resource_count(9) }
       end
 
       describe 'without manage_services' do
@@ -74,7 +74,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -216,7 +216,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -287,7 +287,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -370,7 +370,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -512,7 +512,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -583,7 +583,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -654,7 +654,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -796,7 +796,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
@@ -867,7 +867,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(8) }
+        it { is_expected.to have_service_resource_count(9) }
 
         it {
           is_expected.to contain_service('a.target')
