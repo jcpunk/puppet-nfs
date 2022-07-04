@@ -1,6 +1,6 @@
 repos:
 - repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
-  rev: v2.1.0
+  rev: v2.2.0
   hooks:
     - id: epp-validate
     - id: erb-validate
