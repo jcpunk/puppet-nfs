@@ -1,6 +1,6 @@
 {
   "name": "jcpunk-nfs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Pat Riehecky",
   "summary": "Manage NFS client and server services",
   "license": "Apache-2.0",
@@ -14,7 +14,7 @@
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 3.2.0 < 4.0.0"
+      "version_requirement": ">= 3.2.0 < 5.0.0"
     },
     {
       "name": "jcpunk/gssproxy",
