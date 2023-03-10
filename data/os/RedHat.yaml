@@ -10,8 +10,3 @@ nfs::client_packages:
   - libnfsidmap
   - nfs-utils
   - nfs4-acl-tools
-
-nfs::vendor_nfs_conf_hash:
-  gssd:
-    cred-cache-directory: "/run/user/%U:/tmp"
-...

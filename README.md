@@ -24,7 +24,7 @@ Additionally, an easy way to populate `/etc/idmapd.conf` is provided.
 
 This module also provides an interface to setup NFS exports.
 
-Folks wanting to mount NFS shares should use the `mount` type.
+Folks wanting to mount NFS shares should use the `mount` type.  Possibly via `stdlib::manage` in hiera.
 
 ## Setup
 
@@ -240,7 +240,7 @@ Additional examples are provided in the examples directory.
 ## Limitations
 
 This primarily targeted at RHEL compatible systems with nfs-utils version 2.  Limited
-support for RHEL7 and Debian style systes are provided.
+support for RHEL7 and Debian style systems are provided.
 
 ## Development
 
