@@ -47,7 +47,7 @@ This module should work well with hiera or a feature rich ENC.
 
 Setup a client permitting NFSv3 and NFSv4 along with Kerberos security:
 
-```ruby
+```puppet
 class {'nfs':
   client => true,
   client_nfsv3_support => true,
@@ -64,7 +64,7 @@ nfs::client_kerberos_support: true
 ```
 
 Setup host as a client and a server:
-```ruby
+```puppet
 class {'nfs':
   client => true,
   server => true,
@@ -79,8 +79,8 @@ nfs::server: true
 Setup a server permitting NFSv3 and NFSv4 along with Kerberos security and GSSProxy.
 Also setup two exports, but leave any unmanaged files in `/etc/exports.d/`
 NOTE: if you drop your own files in `/etc/exports.d/` you should `notify`
-      one of: `Class['nfs']` `Class['nfs::service']` `Class['nfs::service::exportfs']
-```ruby
+      one of: `Class['nfs']` `Class['nfs::service']` `Class['nfs::service::exportfs']`
+```puppet
 class {'nfs':
   use_gssproxy => true,
 
@@ -155,7 +155,7 @@ NOTE: if you drop your own files in `/etc/nfs.conf.d/` you should `notify`
       one of: `Class['nfs']` `Class['nfs::service']`
 NOTE: if you drop your own files in `/etc/nfsmount.conf.d/` you should `notify`
       any relevant NFS mounts you've specified.
-```ruby
+```puppet
 class {'nfs':
   client => true,
   server => true,
