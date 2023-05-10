@@ -180,6 +180,10 @@ nfs::vendor_nfs_conf_hash:
     vers2: "no"
     vers3: "no"
     vers4: "no"
+  nfsrahead:
+    nfs: NULL
+    nfs4: NULL
+    default: NULL
   statd:
     debug: NULL
     ha-callout: NULL
