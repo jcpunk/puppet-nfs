@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.2.0
+
+**Bugfixes**
+Fix incorrect default NFSv3 client helper services
+
+**Features**
+Stubs for nfsrahead service
+
 ## Release 0.1.3
 
 **Bugfixes**
