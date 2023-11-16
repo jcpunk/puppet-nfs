@@ -75,7 +75,6 @@ class nfs::service (
   }
 
   if $manage_services {
-
     # Set everything to 'off' and turn on only what we asked for
     # via a bunch of inheritance
     service { union($client_services
