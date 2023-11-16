@@ -35,6 +35,12 @@
       "operatingsystemrelease": [
         "11"
       ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "20.04"
+      ]
     }
   ],
   "requirements": [
