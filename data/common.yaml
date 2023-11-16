@@ -67,7 +67,7 @@ nfs::exportfs_arguments: ['-a', '-r', '-v']
 nfs::idmapd_config_file: /etc/idmapd.conf
 nfs::idmapd_config_hash:
   General:
-    Domain: "%{::domain}"
+    Domain: "%{facts.networking.domain}"
 
 nfs::nfs_conf_file: /etc/nfs.conf
 nfs::nfs_conf_d: /etc/nfs.conf.d
