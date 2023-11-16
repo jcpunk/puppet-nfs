@@ -71,7 +71,7 @@ class nfs::service (
   assert_private()
 
   if $server {
-    contain '::nfs::service::exportfs'
+    contain 'nfs::service::exportfs'
   }
 
   if $manage_services {
@@ -92,6 +92,6 @@ class nfs::service (
 
     # This is where we override the state
     # to start what we need
-    contain '::nfs::service::start'
+    contain 'nfs::service::start'
   }
 }
