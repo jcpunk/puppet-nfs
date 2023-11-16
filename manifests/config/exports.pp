@@ -92,7 +92,7 @@ class nfs::config::exports (
     concat::fragment { "export for ${export}":
       target  => $config_file_real,
       order   => 50,
-      content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}"
+      content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
     }
   }
 }
