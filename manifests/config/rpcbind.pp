@@ -19,6 +19,7 @@ class nfs::config::rpcbind (
   $rpcbind_config_opt_key = $nfs::rpcbind_config_opt_key,
   $rpcbind_config_opt_values = $nfs::rpcbind_config_opt_values,
 ) inherits nfs::config {
+  assert_private()
 
   $template_params = {
     'key'    => $rpcbind_config_opt_key,
@@ -32,5 +33,4 @@ class nfs::config::rpcbind (
     mode    => '0644',
     content => epp('nfs/etc/sysconfig/rpcbind.epp', $template_params),
   }
-
 }

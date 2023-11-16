@@ -17,6 +17,7 @@ class nfs::config::idmapd (
   $idmapd_config_hash = $nfs::idmapd_config_hash,
   $vendor_idmapd_config_hash = $nfs::vendor_idmapd_config_hash,
 ) inherits nfs::config {
+  assert_private()
 
   $merged_idmapd_config_hash = deep_merge($vendor_idmapd_config_hash, $idmapd_config_hash)
 
@@ -31,5 +32,4 @@ class nfs::config::idmapd (
     mode    => '0644',
     content => epp('nfs/etc/idmapd_conf.epp', $template_params),
   }
-
 }

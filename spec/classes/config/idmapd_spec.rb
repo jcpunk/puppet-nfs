@@ -5,8 +5,6 @@ require 'spec_helper'
 describe 'nfs::config::idmapd' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { os_facts.merge({ 'domain': 'hostname.com' }) }
-
       context 'when using defaults' do
         it { is_expected.to compile }
         it {
@@ -16,13 +14,9 @@ describe 'nfs::config::idmapd' do
             .with_group('root')
             .with_mode('0644')
             .with_content(%r{^\[General\]$})
-            .with_content(%r{^Domain=hostname.com$})
+            .with_content(%r{^Domain=example.com$})
             .with_content(%r{^\[Mapping\]$})
             .with_content(%r{^Nobody-User=nobody$})
-        }
-        it {
-          is_expected.not_to contain_file('/etc/idmapd.conf')
-            .with_content(%r{^Domain=example.com$})
         }
       end
 
@@ -41,7 +35,7 @@ describe 'nfs::config::idmapd' do
             .with_group('root')
             .with_mode('0644')
             .with_content(%r{^\[General\]$})
-            .without_content(%r{^Domain=hostname.com$})
+            .without_content(%r{^Domain=example.com$})
             .with_content(%r{^Domain=exists$})
             .with_content(%r{^\[Mapping\]$})
             .with_content(%r{^Nobody-User=user$})

@@ -25,13 +25,12 @@ class nfs::config::nfsmount_conf (
 ) inherits nfs::config {
   assert_private()
 
-
   $template_params = {
     'nfsmount_conf' => deep_merge($vendor_nfsmount_conf_hash, $nfsmount_conf_hash)
   }
 
   file { $nfsmount_conf_file:
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -46,5 +45,4 @@ class nfs::config::nfsmount_conf (
     recurse => $purge_unmanaged_nfsmount_conf_d,
     purge   => $purge_unmanaged_nfsmount_conf_d,
   }
-
 }

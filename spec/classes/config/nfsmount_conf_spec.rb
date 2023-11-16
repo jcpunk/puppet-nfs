@@ -12,7 +12,7 @@ describe 'nfs::config::nfsmount_conf' do
         it { is_expected.to have_file_resource_count(2) }
         it {
           is_expected.to contain_file('/etc/nfsmount.conf')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
@@ -44,7 +44,7 @@ describe 'nfs::config::nfsmount_conf' do
         it { is_expected.to have_file_resource_count(2) }
         it {
           is_expected.to contain_file('/etc/nfsmount.conf')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
