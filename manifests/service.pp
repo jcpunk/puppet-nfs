@@ -77,16 +77,20 @@ class nfs::service (
   if $manage_services {
     # Set everything to 'off' and turn on only what we asked for
     # via a bunch of inheritance
-    service { union($client_services
-                  , $client_v3_helper_services
-                  , $client_v4_helper_services
-                  , $client_kerberos_services
-                  , $server_services
-                  , $server_v3_helper_services
-                  , $server_v4_helper_services
-                  , $server_kerberos_services):
-      ensure => 'stopped',
-      enable => false,
+    (
+      $client_services
+      + $client_v3_helper_services
+      + $client_v4_helper_services
+      + $client_kerberos_services
+      + $server_services
+      + $server_v3_helper_services
+      + $server_v4_helper_services
+      + $server_kerberos_services
+    ).unique.filter |$i| { $i =~ NotUndef }.each |$svc| {
+      service { $svc:
+        ensure => stopped,
+        enable => false,
+      }
     }
 
     # This is where we override the state

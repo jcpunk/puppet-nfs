@@ -118,9 +118,9 @@ class nfs (
   Boolean $manage_server_packages,
   Array[String[1]] $server_packages,
   Array[Systemd::Unit] $server_services,
-  Array[Systemd::Unit] $server_v3_helper_services,
-  Array[Systemd::Unit] $server_v4_helper_services,
-  Array[Systemd::Unit] $server_kerberos_services,
+  Optional[Array[Systemd::Unit]] $server_v3_helper_services,
+  Optional[Array[Systemd::Unit]] $server_v4_helper_services,
+  Optional[Array[Systemd::Unit]] $server_kerberos_services,
 
   Boolean $use_gssproxy,
   Hash[String, Variant[Data, Array[String[1]], Undef]] $gssproxy_services,
