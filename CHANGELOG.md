@@ -5,29 +5,37 @@ All notable changes to this project will be documented in this file.
 ## Release 0.3.0
 
 **Bugfixes**
+
 Correct missing \n at end of exports
+
 Remove incorrect list of support for RHEL7, it is nfsutils v1
 
 **Features**
+
 Add Ubuntu support
+
 Note Almalinux support
 
 ## Release 0.2.1
 
 **Bugfixes**
+
 Use non-legacy fact for domain
 
 ## Release 0.2.0
 
 **Bugfixes**
+
 Fix incorrect default NFSv3 client helper services
 
 **Features**
+
 Stubs for nfsrahead service
 
 ## Release 0.1.3
 
 **Bugfixes**
+
 Fix incorrect default for RHEL systems
 
 ## Release 0.1.2
