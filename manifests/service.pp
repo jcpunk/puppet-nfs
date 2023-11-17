@@ -71,11 +71,10 @@ class nfs::service (
   assert_private()
 
   if $server {
-    contain '::nfs::service::exportfs'
+    contain 'nfs::service::exportfs'
   }
 
   if $manage_services {
-
     # Set everything to 'off' and turn on only what we asked for
     # via a bunch of inheritance
     service { union($client_services
@@ -92,6 +91,6 @@ class nfs::service (
 
     # This is where we override the state
     # to start what we need
-    contain '::nfs::service::start'
+    contain 'nfs::service::start'
   }
 }

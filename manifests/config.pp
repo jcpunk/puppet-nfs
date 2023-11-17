@@ -58,23 +58,23 @@ class nfs::config (
   }
 
   if $client or $server {
-    contain '::nfs::config::nfs_conf'
+    contain 'nfs::config::nfs_conf'
   }
 
   if $client {
-    contain '::nfs::config::nfsmount_conf'
+    contain 'nfs::config::nfsmount_conf'
   }
 
   if $server {
-    contain '::nfs::config::exports'
+    contain 'nfs::config::exports'
   }
 
   if $server and $server_nfsv4_support {
-    contain '::nfs::config::idmapd'
+    contain 'nfs::config::idmapd'
   }
 
   if ($server and $server_nfsv3_support) or ($client and $client_nfsv3_support) {
-    contain '::nfs::config::rpcbind'
+    contain 'nfs::config::rpcbind'
   }
 
 }

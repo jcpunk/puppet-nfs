@@ -152,9 +152,9 @@ class nfs (
   Hash[String, Variant[Hash[String, Data], Undef]] $nfsmount_conf_hash,
   Hash[String, Hash[String, Data]] $vendor_nfsmount_conf_hash,
 ) {
-  contain '::nfs::install'
-  contain '::nfs::config'
-  contain '::nfs::service'
+  contain 'nfs::install'
+  contain 'nfs::config'
+  contain 'nfs::service'
 
   Class['nfs::install'] -> Class['nfs::config'] ~> Class['nfs::service']
 }

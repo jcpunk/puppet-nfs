@@ -58,7 +58,7 @@ class nfs::config::nfs_conf (
       fail('Requested GSSProxy support, but did not enable kerberos for client or server')
     }
 
-    contain '::nfs::config::gssproxy'
+    contain 'nfs::config::gssproxy'
 
     $merged_nfs_conf_hash_gssproxy = deep_merge($merged_nfs_conf_hash_v4setting, {'gssd' => {'use-gss-proxy' => 'yes'}})
   } else {
