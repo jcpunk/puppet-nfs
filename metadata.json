@@ -1,6 +1,6 @@
 {
   "name": "jcpunk-nfs",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": "Pat Riehecky",
   "summary": "Manage NFS client and server services",
   "license": "Apache-2.0",
@@ -23,9 +23,15 @@
   ],
   "operatingsystem_support": [
     {
+      "operatingsystem": "AlmaLinux",
+      "operatingsystemrelease": [
+        "8",
+        "9"
+      ]
+    },
+    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
       ]

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.3.0
+
+**Bugfixes**
+Correct missing \n at end of exports
+Remove incorrect list of support for RHEL7, it is nfsutils v1
+
+**Features**
+Add Ubuntu support
+Note Almalinux support
+
 ## Release 0.2.1
 
 **Bugfixes**
