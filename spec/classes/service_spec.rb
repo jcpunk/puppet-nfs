@@ -10,7 +10,12 @@ describe 'nfs::service' do
       describe 'with defaults' do
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(9) }
+
+        if os_facts[:os]["name"] == 'Ubuntu'
+          it { is_expected.to have_service_resource_count(8) }
+        else
+          it { is_expected.to have_service_resource_count(9) }
+        end
       end
 
       describe 'with manage_services' do
@@ -22,7 +27,12 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
-        it { is_expected.to have_service_resource_count(9) }
+
+        if os_facts[:os]["name"] == 'Ubuntu'
+          it { is_expected.to have_service_resource_count(8) }
+        else
+          it { is_expected.to have_service_resource_count(9) }
+        end
       end
 
       describe 'without manage_services' do
