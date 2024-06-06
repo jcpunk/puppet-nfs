@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.Y.Z
+## Release 0.3.1
+
+**Bugfixes**
+
+Fix flapping rpc-statd-notify.service
 
 **Features**
 
