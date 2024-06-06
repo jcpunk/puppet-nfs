@@ -28,7 +28,6 @@ nfs::server_kerberos_services:
 
 nfs::server_v3_helper_services:
   - rpc-statd.service
-  - rpc-statd-notify.service
 
 nfs::server_v4_helper_services:
   - nfs-idmapd.service
@@ -47,7 +46,6 @@ nfs::client_kerberos_services:
 
 nfs::client_v3_helper_services:
   - rpc-statd.service
-  - rpc-statd-notify.service
 
 nfs::client_v4_helper_services:
   - nfs-blkmap.service
