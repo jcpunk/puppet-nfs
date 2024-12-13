@@ -1,6 +1,6 @@
 {
   "name": "jcpunk-nfs",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Pat Riehecky",
   "summary": "Manage NFS client and server services",
   "license": "Apache-2.0",
