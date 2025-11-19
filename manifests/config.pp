@@ -33,6 +33,7 @@
 #   Hash of NFS exports to create, see examples for structure
 #
 class nfs::config (
+  # lint:ignore:parameter_types
   $client = $nfs::client,
   $client_kerberos_support = $nfs::client_kerberos_support,
   $use_gssproxy = $nfs::use_gssproxy,
@@ -46,6 +47,7 @@ class nfs::config (
   $exports_d = $nfs::exports_d,
   $purge_unmanaged_exports = $nfs::purge_unmanaged_exports,
   $exports = $nfs::exports,
+  # lint:endignore
 ) inherits nfs {
   assert_private()
 
@@ -76,5 +78,4 @@ class nfs::config (
   if ($server and $server_nfsv3_support) or ($client and $client_nfsv3_support) {
     contain 'nfs::config::rpcbind'
   }
-
 }

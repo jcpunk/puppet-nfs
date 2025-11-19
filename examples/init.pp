@@ -22,7 +22,7 @@ class { 'nfs':
   use_gssproxy              => false,
 
   # use these arguments for exportfs
-  exportfs_arguments        => [ '-a', ],
+  exportfs_arguments        => ['-a',],
 
   # setup these nfs exports for the listed clients
   # with the specified options
@@ -31,7 +31,7 @@ class { 'nfs':
       'clients' => {
         '127.0.0.1'     => ['rw', 'no_subtree_check'],
         '*.example.com' => ['rw', 'sec=krb5', 'no_subtree_check'],
-      }
+      },
     },
     'Detailed Example' => {
       'export_path' => '/my/nfs/path',
@@ -40,8 +40,8 @@ class { 'nfs':
       'clients'     => {
         '127.0.0.1'     => ['rw', 'no_subtree_check'],
         '*.example.com' => ['rw', 'sec=krb5', 'no_subtree_check'],
-      }
-    }
+      },
+    },
   },
 
   # start rpcbind with these arguments
@@ -64,14 +64,14 @@ class { 'nfs':
   nfs_conf_hash             => {
     'lockd'  => {
       'port'     => 32803,
-      'udp-port' => 32769
+      'udp-port' => 32769,
     },
     'mountd' => {
-      'port' => 892
+      'port' => 892,
     },
     'statd'  => {
       'port'          => 662,
-      'outgoing-port' => 2020
+      'outgoing-port' => 2020,
     },
   },
 
@@ -83,5 +83,5 @@ class { 'nfs':
     '/my/mnt/point'        => {
       'Defaultvers' => 4,
     },
-  }
+  },
 }

@@ -15,9 +15,11 @@
 #   Array of arguments to set on rpcbind
 #
 class nfs::config::rpcbind (
+  # lint:ignore:parameter_types
   $rpcbind_config_opt_file = $nfs::rpcbind_config_opt_file,
   $rpcbind_config_opt_key = $nfs::rpcbind_config_opt_key,
   $rpcbind_config_opt_values = $nfs::rpcbind_config_opt_values,
+  # lint:endignore
 ) inherits nfs::config {
   assert_private()
 
@@ -27,7 +29,7 @@ class nfs::config::rpcbind (
   }
 
   file { $rpcbind_config_opt_file:
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',

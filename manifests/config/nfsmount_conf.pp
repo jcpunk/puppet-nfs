@@ -17,16 +17,18 @@
 #   Hash of vendor default settings in /etc/nfsmount.conf
 #
 class nfs::config::nfsmount_conf (
+  # lint:ignore:parameter_types
   $nfsmount_conf_file = $nfs::nfsmount_conf_file,
   $nfsmount_conf_d = $nfs::nfsmount_conf_d,
   $purge_unmanaged_nfsmount_conf_d = $nfs::purge_unmanaged_nfsmount_conf_d,
   $nfsmount_conf_hash = $nfs::nfsmount_conf_hash,
   $vendor_nfsmount_conf_hash = $nfs::vendor_nfsmount_conf_hash,
+  # lint:endignore
 ) inherits nfs::config {
   assert_private()
 
   $template_params = {
-    'nfsmount_conf' => deep_merge($vendor_nfsmount_conf_hash, $nfsmount_conf_hash)
+    'nfsmount_conf' => deep_merge($vendor_nfsmount_conf_hash, $nfsmount_conf_hash),
   }
 
   file { $nfsmount_conf_file:

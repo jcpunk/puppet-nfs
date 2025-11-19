@@ -28,6 +28,7 @@
 #   Hash of vendor default settings in /etc/nfs.conf
 #
 class nfs::config::nfs_conf (
+  # lint:ignore:parameter_types
   $use_gssproxy = $nfs::use_gssproxy,
   $gssproxy_services = $nfs::gssproxy_services,
   $server_nfsv3_support = $nfs::server_nfsv3_support,
@@ -39,19 +40,20 @@ class nfs::config::nfs_conf (
   $purge_unmanaged_nfs_conf_d = $nfs::purge_unmanaged_nfs_conf_d,
   $nfs_conf_hash = $nfs::nfs_conf_hash,
   $vendor_nfs_conf_hash = $nfs::vendor_nfs_conf_hash,
+  # lint:endignore
 ) inherits nfs {
   assert_private()
 
   $merged_nfs_conf_hash = deep_merge($vendor_nfs_conf_hash, $nfs_conf_hash)
   if $server_nfsv3_support {
-    $merged_nfs_conf_hash_v3setting = deep_merge($merged_nfs_conf_hash, {'nfsd' => {'vers3' => 'yes'}})
+    $merged_nfs_conf_hash_v3setting = deep_merge($merged_nfs_conf_hash, { 'nfsd' => { 'vers3' => 'yes' } })
   } else {
-    $merged_nfs_conf_hash_v3setting = deep_merge($merged_nfs_conf_hash, {'nfsd' => {'vers3' => 'no'}})
+    $merged_nfs_conf_hash_v3setting = deep_merge($merged_nfs_conf_hash, { 'nfsd' => { 'vers3' => 'no' } })
   }
   if $server_nfsv4_support {
-    $merged_nfs_conf_hash_v4setting = deep_merge($merged_nfs_conf_hash_v3setting, {'nfsd' => {'vers4' => 'yes'}})
+    $merged_nfs_conf_hash_v4setting = deep_merge($merged_nfs_conf_hash_v3setting, { 'nfsd' => { 'vers4' => 'yes' } })
   } else {
-    $merged_nfs_conf_hash_v4setting = deep_merge($merged_nfs_conf_hash_v3setting, {'nfsd' => {'vers4' => 'no'}})
+    $merged_nfs_conf_hash_v4setting = deep_merge($merged_nfs_conf_hash_v3setting, { 'nfsd' => { 'vers4' => 'no' } })
   }
   if $use_gssproxy {
     unless $client_kerberos_support or $server_kerberos_support {
@@ -60,9 +62,9 @@ class nfs::config::nfs_conf (
 
     contain 'nfs::config::gssproxy'
 
-    $merged_nfs_conf_hash_gssproxy = deep_merge($merged_nfs_conf_hash_v4setting, {'gssd' => {'use-gss-proxy' => 'yes'}})
+    $merged_nfs_conf_hash_gssproxy = deep_merge($merged_nfs_conf_hash_v4setting, { 'gssd' => { 'use-gss-proxy' => 'yes' } })
   } else {
-    $merged_nfs_conf_hash_gssproxy = deep_merge($merged_nfs_conf_hash_v4setting, {'gssd' => {'use-gss-proxy' => 'no'}})
+    $merged_nfs_conf_hash_gssproxy = deep_merge($merged_nfs_conf_hash_v4setting, { 'gssd' => { 'use-gss-proxy' => 'no' } })
   }
 
   $nfs_conf_template_params = {
@@ -70,7 +72,7 @@ class nfs::config::nfs_conf (
   }
 
   file { $nfs_conf_file:
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -101,7 +103,7 @@ class nfs::config::nfs_conf (
     }
 
     file { '/etc/sysconfig/nfs':
-      ensure  => 'present',
+      ensure  => 'file',
       owner   => 'root',
       group   => 'root',
       mode    => '0644',

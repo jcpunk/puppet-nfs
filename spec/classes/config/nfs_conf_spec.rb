@@ -11,7 +11,7 @@ describe 'nfs::config::nfs_conf' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/etc/nfs.conf')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
@@ -82,7 +82,7 @@ describe 'nfs::config::nfs_conf' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/path/to/thing')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
@@ -128,7 +128,7 @@ describe 'nfs::config::nfs_conf' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/etc/nfs.conf')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')

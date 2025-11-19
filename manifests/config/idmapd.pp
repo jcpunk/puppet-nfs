@@ -13,20 +13,22 @@
 #   Hash of vendor default settings in /etc/idmapd.conf
 #
 class nfs::config::idmapd (
+  # lint:ignore:parameter_types
   $idmapd_config_file = $nfs::idmapd_config_file,
   $idmapd_config_hash = $nfs::idmapd_config_hash,
   $vendor_idmapd_config_hash = $nfs::vendor_idmapd_config_hash,
+  # lint:endignore
 ) inherits nfs::config {
   assert_private()
 
   $merged_idmapd_config_hash = deep_merge($vendor_idmapd_config_hash, $idmapd_config_hash)
 
   $template_params = {
-    'idmapd_config' => $merged_idmapd_config_hash
+    'idmapd_config' => $merged_idmapd_config_hash,
   }
 
   file { $idmapd_config_file:
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',

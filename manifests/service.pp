@@ -45,6 +45,7 @@
 #   Array of arguments to use with exportfs
 #
 class nfs::service (
+  # lint:ignore:parameter_types
   $manage_services = $nfs::manage_services,
 
   $client = $nfs::client,
@@ -67,6 +68,7 @@ class nfs::service (
 
   $exportfs = $nfs::exportfs,
   $exportfs_arguments = $nfs::exportfs_arguments
+  # lint:endignore
 ) inherits nfs {
   assert_private()
 
@@ -78,15 +80,15 @@ class nfs::service (
     # Set everything to 'off' and turn on only what we asked for
     # via a bunch of inheritance
     service { union($client_services
-                  , $client_v3_helper_services
-                  , $client_v4_helper_services
-                  , $client_kerberos_services
-                  , $server_services
-                  , $server_v3_helper_services
-                  , $server_v4_helper_services
-                  , $server_kerberos_services):
-      ensure => 'stopped',
-      enable => false,
+        , $client_v3_helper_services
+        , $client_v4_helper_services
+        , $client_kerberos_services
+        , $server_services
+        , $server_v3_helper_services
+        , $server_v4_helper_services
+      , $server_kerberos_services):
+        ensure => 'stopped',
+        enable => false,
     }
 
     # This is where we override the state

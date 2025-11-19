@@ -5,11 +5,13 @@ require 'spec_helper'
 describe 'nfs::config::idmapd' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
+      let(:facts) { os_facts }
+
       context 'when using defaults' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/etc/idmapd.conf')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
@@ -30,7 +32,7 @@ describe 'nfs::config::idmapd' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/etc/idmapd.conf')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
