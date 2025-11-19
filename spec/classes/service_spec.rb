@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# it { pp catalogue.resources }
 describe 'nfs::service' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
@@ -10,11 +11,21 @@ describe 'nfs::service' do
       describe 'with defaults' do
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_service('nfs-blkmap.service') }
+        it { is_expected.to contain_service('nfs-idmapd.service') }
+        it { is_expected.to contain_service('nfs-mountd.service') }
+
+        it { is_expected.to contain_service('nfs-server.service') }
+        it { is_expected.to contain_service('nfs-client.target') }
+
+        it { is_expected.to contain_service('rpc-gssd.service') }
+        it { is_expected.to contain_service('rpc-statd.service') }
 
         if os_facts[:os]['name'] == 'Ubuntu'
           it { is_expected.to have_service_resource_count(7) }
         else
           it { is_expected.to have_service_resource_count(8) }
+          it { is_expected.to contain_service('nfsdcld.service') }
         end
       end
 
@@ -27,6 +38,7 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        # mostly just trust that the "default" tests have the right services
 
         if os_facts[:os]['name'] == 'Ubuntu'
           it { is_expected.to have_service_resource_count(7) }
@@ -44,6 +56,9 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        it { is_expected.not_to contain_class('nfs::service::start') }
+        it { is_expected.not_to contain_class('nfs::service::client') }
+        it { is_expected.not_to contain_class('nfs::service::server') }
         it { is_expected.to have_service_resource_count(0) }
       end
 
@@ -84,6 +99,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.not_to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -155,6 +174,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.not_to contain_class('nfs::service::server') }
+        it { is_expected.not_to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(8) }
 
         it {
@@ -226,6 +249,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.not_to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -297,6 +324,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.not_to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -380,6 +411,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -451,6 +486,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.not_to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(8) }
 
         it {
@@ -522,6 +561,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -593,6 +636,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -664,6 +711,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -735,6 +786,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.not_to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(8) }
 
         it {
@@ -806,6 +861,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {
@@ -877,6 +936,10 @@ describe 'nfs::service' do
 
         it { is_expected.to compile }
         it { is_expected.to contain_class('nfs::service::exportfs') }
+        it { is_expected.to contain_class('nfs::service::start') }
+        it { is_expected.to contain_class('nfs::service::client') }
+        it { is_expected.to contain_class('nfs::service::server') }
+        it { is_expected.to contain_service('rpcbind.socket') }
         it { is_expected.to have_service_resource_count(9) }
 
         it {

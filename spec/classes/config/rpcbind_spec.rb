@@ -10,6 +10,11 @@ describe 'nfs::config::rpcbind' do
       context 'when using defaults' do
         it { is_expected.to compile }
         it { is_expected.to have_file_resource_count(1) }
+        if os_facts[:os]['family'] == 'Debian'
+          it { is_expected.to contain_file('/etc/default/rpcbind') }
+        else
+          it { is_expected.to contain_file('/etc/sysconfig/rpcbind') }
+        end
       end
 
       context 'with params' do
@@ -24,7 +29,7 @@ describe 'nfs::config::rpcbind' do
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/file/path')
-            .with_ensure('present')
+            .with_ensure('file')
             .with_owner('root')
             .with_group('root')
             .with_mode('0644')
