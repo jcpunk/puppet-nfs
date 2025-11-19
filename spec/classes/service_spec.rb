@@ -11,7 +11,7 @@ describe 'nfs::service' do
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
 
-        if os_facts[:os]["name"] == 'Ubuntu'
+        if os_facts[:os]['name'] == 'Ubuntu'
           it { is_expected.to have_service_resource_count(7) }
         else
           it { is_expected.to have_service_resource_count(8) }
@@ -28,7 +28,7 @@ describe 'nfs::service' do
         it { is_expected.to compile }
         it { is_expected.not_to contain_class('nfs::service::exportfs') }
 
-        if os_facts[:os]["name"] == 'Ubuntu'
+        if os_facts[:os]['name'] == 'Ubuntu'
           it { is_expected.to have_service_resource_count(7) }
         else
           it { is_expected.to have_service_resource_count(8) }

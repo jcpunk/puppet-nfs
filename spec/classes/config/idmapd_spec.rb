@@ -5,6 +5,8 @@ require 'spec_helper'
 describe 'nfs::config::idmapd' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
+      let(:facts) { os_facts }
+
       context 'when using defaults' do
         it { is_expected.to compile }
         it {

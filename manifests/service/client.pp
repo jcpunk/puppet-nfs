@@ -26,6 +26,7 @@
 # @param client_kerberos_services
 #   Array of services for NFS kerberos clients
 class nfs::service::client (
+  # lint:ignore:parameter_types
   $client = $nfs::service::client,
   $server = $nfs::service::server,
   $client_nfsv3_support = $nfs::service::client_nfsv3_support,
@@ -35,6 +36,7 @@ class nfs::service::client (
   $client_v3_helper_services = $nfs::service::client_v3_helper_services,
   $client_v4_helper_services = $nfs::service::client_v4_helper_services,
   $client_kerberos_services = $nfs::service::client_kerberos_services,
+  # lint:endignore
 ) inherits nfs::service::start {
   assert_private()
 
@@ -72,7 +74,6 @@ class nfs::service::client (
 
   # server services phase of the inheritance chain
   if $server {
-    contain '::nfs::service::server'
+    contain 'nfs::service::server'
   }
-
 }

@@ -14,8 +14,10 @@
 #   Array of arguments to use with exportfs
 #
 class nfs::service::exportfs (
+  # lint:ignore:parameter_types
   $exportfs = $nfs::service::exportfs,
   $exportfs_arguments = $nfs::service::exportfs_arguments
+  # lint:endignore
 ) inherits nfs::service {
   assert_private()
 

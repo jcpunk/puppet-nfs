@@ -117,6 +117,14 @@ describe 'nfs::config::exports' do
             .with_purge(true)
         }
         it {
+          is_expected.to contain_concat('/etc/exports.d/puppet.exports')
+            .with_ensure('present')
+            .with_owner('root')
+            .with_group('root')
+            .with_mode('0644')
+        }
+
+        it {
           is_expected.to contain_concat('/etc/exports')
             .with_ensure('present')
             .with_owner('root')
@@ -140,7 +148,7 @@ describe 'nfs::config::exports' do
           is_expected.to contain_concat__fragment('export for A title')
             .with_target('/etc/exports.d/puppet.exports')
             .with_content("\n\n#\n# Resource:A title\n# Note this is here\n/real/path	 10.0.0.2(rw,intr) 127.0.0.2(ro,bg)\n")
-            .with_require("File[/real/path]")
+            .with_require('File[/real/path]')
         }
       end
     end

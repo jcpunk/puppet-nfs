@@ -23,15 +23,16 @@
 #   Array of packages for NFS servers
 #
 class nfs::install (
+  # lint:ignore:parameter_types
   $client = $nfs::client,
   $manage_client_packages = $nfs::manage_client_packages,
   $client_packages = $nfs::client_packages,
   $server = $nfs::server,
   $manage_server_packages = $nfs::manage_server_packages,
   $server_packages = $nfs::server_packages,
+  # lint:endignore
 ) inherits nfs {
   assert_private()
-
 
   if $client and $manage_client_packages {
     $nfs_client_install_packages = $client_packages
@@ -46,7 +47,6 @@ class nfs::install (
   }
 
   package { unique(flatten($nfs_client_install_packages, $nfs_server_install_packages)):
-    ensure => 'present'
+    ensure => 'present',
   }
-
 }

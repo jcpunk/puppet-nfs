@@ -13,21 +13,23 @@
 #   Boolean, should this host be an NFS server
 #
 class nfs::service::start (
+  # lint:ignore:parameter_types
   $client = $nfs::service::client,
   $server = $nfs::service::server,
+  # lint:endignore
 ) inherits nfs::service {
   assert_private()
 
   # start the inheritance chain
-  contain '::nfs::service::client'
+  contain 'nfs::service::client'
 
   # client services
   if $client {
-    contain '::nfs::service::client'
+    contain 'nfs::service::client'
   }
 
   # server services
   if $server {
-    contain '::nfs::service::server'
+    contain 'nfs::service::server'
   }
 }

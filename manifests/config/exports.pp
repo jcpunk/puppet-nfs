@@ -14,10 +14,12 @@
 #   Boolean, Should unmanaged files in /etc/exports.d/ be removed?
 #
 class nfs::config::exports (
+  # lint:ignore:parameter_types
   $exports = $nfs::config::exports,
   $exports_d = $nfs::config::exports_d,
   $exports_file = $nfs::config::exports_file,
   $purge_unmanaged_exports = $nfs::config::purge_unmanaged_exports,
+  # lint:endignore
 ) inherits nfs::config {
   assert_private()
 
@@ -77,10 +79,10 @@ class nfs::config::exports (
     }
 
     # make file with puppet header
-    ensure_resource('concat', $config_file_real, {'ensure' => 'present', 'owner' => 'root', 'group' => 'root', 'mode' => '0644'})
+    ensure_resource('concat', $config_file_real, { 'ensure' => 'present', 'owner' => 'root', 'group' => 'root', 'mode' => '0644' })
     ensure_resource('concat::fragment', "puppet_managed_header - ${config_file_real}",
       { 'target' => $config_file_real, 'order' => '01',
-        'content' => "#\n# This file managed by Puppet - DO NOT EDIT\n#\n"})
+    'content' => "#\n# This file managed by Puppet - DO NOT EDIT\n#\n" })
 
     # merge clients into a simple element
     $clients_real = $exports[$export]['clients'].keys.sort.reduce('') |$memo, $element| {
