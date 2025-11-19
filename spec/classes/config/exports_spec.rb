@@ -102,6 +102,10 @@ describe 'nfs::config::exports' do
           }
         end
 
+        let(:pre_condition) do
+          'file { "/real/path": ensure => "directory" }'
+        end
+
         it { is_expected.to compile }
         it {
           is_expected.to contain_file('/etc/exports.d/')
@@ -130,11 +134,13 @@ describe 'nfs::config::exports' do
           is_expected.to contain_concat__fragment('export for /tmp/some/path')
             .with_target('/etc/exports')
             .with_content("\n\n#\n# Resource:/tmp/some/path\n/tmp/some/path	 10.0.0.1(rw,intr) 127.0.0.1(ro,bg)\n")
+            .without_require
         }
         it {
           is_expected.to contain_concat__fragment('export for A title')
             .with_target('/etc/exports.d/puppet.exports')
             .with_content("\n\n#\n# Resource:A title\n# Note this is here\n/real/path	 10.0.0.2(rw,intr) 127.0.0.2(ro,bg)\n")
+            .with_require("File[/real/path]")
         }
       end
     end

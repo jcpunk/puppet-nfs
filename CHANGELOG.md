@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.4.0
+
+**Features**
+
+Automatically orders against File resources on exports if defined
+
 ## Release 0.3.3
 
 **Features**

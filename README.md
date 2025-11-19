@@ -55,7 +55,9 @@ class {'nfs':
   client_kerberos_support => true,
 }
 ```
+
 or hiera
+
 ```yaml
 nfs::client: true
 nfs::client_nfsv3_support: true
@@ -64,13 +66,16 @@ nfs::client_kerberos_support: true
 ```
 
 Setup host as a client and a server:
+
 ```puppet
 class {'nfs':
   client => true,
   server => true,
 }
 ```
+
 or hiera
+
 ```yaml
 nfs::client: true
 nfs::server: true
@@ -78,8 +83,12 @@ nfs::server: true
 
 Setup a server permitting NFSv3 and NFSv4 along with Kerberos security and GSSProxy.
 Also setup two exports, but leave any unmanaged files in `/etc/exports.d/`
+
 NOTE: if you drop your own files in `/etc/exports.d/` you should `notify`
       one of: `Class['nfs']` `Class['nfs::service']` `Class['nfs::service::exportfs']`
+
+NOTE: if defined, your export fragment will require the listed `File` resource.
+
 ```puppet
 class {'nfs':
   use_gssproxy => true,
@@ -110,7 +119,9 @@ class {'nfs':
   }
 }
 ```
+
 or hiera
+
 ```yaml
 nfs::use_gssproxy: true
 nfs::server: true
@@ -155,6 +166,7 @@ NOTE: if you drop your own files in `/etc/nfs.conf.d/` you should `notify`
       one of: `Class['nfs']` `Class['nfs::service']`
 NOTE: if you drop your own files in `/etc/nfsmount.conf.d/` you should `notify`
       any relevant NFS mounts you've specified.
+
 ```puppet
 class {'nfs':
   client => true,
@@ -192,7 +204,9 @@ class {'nfs':
   }
 }
 ```
+
 or hiera
+
 ```yaml
 nfs::client: true
 nfs::server: true

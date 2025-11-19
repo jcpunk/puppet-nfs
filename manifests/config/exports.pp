@@ -89,10 +89,19 @@ class nfs::config::exports (
       join([$memo, $client_elements], ' ')
     }
 
-    concat::fragment { "export for ${export}":
-      target  => $config_file_real,
-      order   => 50,
-      content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
+    if defined(File[$export_path_real]) {
+      concat::fragment { "export for ${export}":
+        target  => $config_file_real,
+        order   => 50,
+        content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
+        require => File[$export_path_real],
+      }
+    } else {
+      concat::fragment { "export for ${export}":
+        target  => $config_file_real,
+        order   => 50,
+        content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
+      }
     }
   }
 }
