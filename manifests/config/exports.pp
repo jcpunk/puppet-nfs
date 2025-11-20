@@ -12,6 +12,8 @@
 #   Full path to your /etc/exports
 # @param purge_unmanaged_exports
 #   Boolean, Should unmanaged files in /etc/exports.d/ be removed?
+# @param server_services
+#   Array of services for any type of NFS server
 #
 class nfs::config::exports (
   # lint:ignore:parameter_types
@@ -19,6 +21,7 @@ class nfs::config::exports (
   $exports_d = $nfs::config::exports_d,
   $exports_file = $nfs::config::exports_file,
   $purge_unmanaged_exports = $nfs::config::purge_unmanaged_exports,
+  $server_services = $nfs::server_services,
   # lint:endignore
 ) inherits nfs::config {
   assert_private()
@@ -37,6 +40,7 @@ class nfs::config::exports (
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
+    notify => Service[$server_services],
   }
 
   concat::fragment { "puppet_managed_header - ${exports_file}":
@@ -79,10 +83,10 @@ class nfs::config::exports (
     }
 
     # make file with puppet header
-    ensure_resource('concat', $config_file_real, { 'ensure' => 'present', 'owner' => 'root', 'group' => 'root', 'mode' => '0644' })
+    ensure_resource('concat', $config_file_real, { 'ensure' => 'present', 'owner' => 'root', 'group' => 'root', 'mode' => '0644', 'notify' => Service[$server_services] })
     ensure_resource('concat::fragment', "puppet_managed_header - ${config_file_real}",
       { 'target' => $config_file_real, 'order' => '01',
-    'content' => "#\n# This file managed by Puppet - DO NOT EDIT\n#\n" })
+    'content'                                               => "#\n# This file managed by Puppet - DO NOT EDIT\n#\n" })
 
     # merge clients into a simple element
     $clients_real = $exports[$export]['clients'].keys.sort.reduce('') |$memo, $element| {
@@ -92,18 +96,23 @@ class nfs::config::exports (
     }
 
     if defined(File[$export_path_real]) {
-      concat::fragment { "export for ${export}":
-        target  => $config_file_real,
-        order   => 50,
-        content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
-        require => File[$export_path_real],
-      }
+      $require_real = File[$export_path_real]
     } else {
-      concat::fragment { "export for ${export}":
-        target  => $config_file_real,
-        order   => 50,
-        content => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
-      }
+      $require_real = []
+    }
+
+    if defined(Mount[$export_path_real]) {
+      $subscribe_real = Mount[$export_path_real]
+    } else {
+      $subscribe_real = []
+    }
+
+    concat::fragment { "export for ${export}":
+      target    => $config_file_real,
+      order     => 50,
+      content   => "\n\n${comment_real}\n${export_path_real}\t${clients_real}\n",
+      require   => $require_real,
+      subscribe => $subscribe_real,
     }
   }
 }
