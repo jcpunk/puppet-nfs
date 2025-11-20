@@ -272,7 +272,7 @@ Boolean, Should unmanaged files in /etc/exports.d/ be removed?
 
 ##### <a name="-nfs--exports"></a>`exports`
 
-Data type: `Hash[String, Hash[Enum['export_path', 'config_file', 'comment', 'clients'], Variant[String[1], Hash[String, Array[String[1], 1]]]]]`
+Data type: `Hash[String, Hash[Enum['export_path','config_file','comment','clients','dont_sanity_check_export'], Variant[String[1], Hash[String, Array[String[1],1]], Boolean]]]`
 
 Hash of NFS exports to create, see examples for structure
 

@@ -167,6 +167,39 @@ describe 'nfs::config' do
         it { is_expected.to contain_class('nfs::config::idmapd') }
         it { is_expected.to contain_class('nfs::config::rpcbind') }
       end
+
+      describe 'with exports but without server should fail' do
+        let(:params) do
+          {
+            'server'  => false,
+            'exports' => {
+              '/export' => {
+                'clients' => { '*' => ['ro', 'fsid=0'], },
+              }
+            }
+          }
+        end
+
+        it { is_expected.not_to compile }
+      end
+
+      describe 'with exports but without server, but trusted' do
+        let(:params) do
+          {
+            'server'  => false,
+            'exports' => {
+              '/export' => {
+                'clients' => { '*' => ['ro', 'fsid=0'], },
+                'dont_sanity_check_export' => true,
+              }
+            }
+          }
+        end
+
+        it { is_expected.to compile }
+        it { is_expected.to have_concat_resource_count(0) }
+        it { is_expected.to have_concat__fragment_resource_count(0) }
+      end
     end
   end
 end

@@ -17,6 +17,7 @@ describe 'nfs::config::exports' do
             .with_mode('0755')
             .with_recurse(true)
             .with_purge(true)
+            .with_notify(['Service[nfs-server.service]', 'Service[nfs-mountd.service]'])
         }
         it {
           is_expected.to contain_concat('/etc/exports')
@@ -100,6 +101,7 @@ describe 'nfs::config::exports' do
                 'export_path' => '/real/path',
                 'config_file' => '/etc/exports.d/puppet.exports',
                 'comment' => 'Note this is here',
+                'dont_sanity_check_export' => true,
               }
             }
           }

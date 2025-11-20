@@ -58,8 +58,16 @@ class nfs::config (
     fail('Requested NFS server, but disabled both v3 and v4 mode')
   }
 
-  if ! $server and $exports != {} {
-    fail('Requested NFS exports but NFS server is not enabled')
+  if ! $server {
+    $filtered_exports = $exports.filter |$name, $data| {
+      $data.dig('dont_sanity_check_export') ? {
+        Boolean => ! $data['dont_sanity_check_export'],
+        default => true,
+      }
+    }
+    if $filtered_exports != {} {
+      fail('Requested NFS exports but NFS server is not enabled, you can add `dont_sanity_check_export` to an export avoid this')
+    }
   }
 
   if $client or $server {
