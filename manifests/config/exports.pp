@@ -33,6 +33,7 @@ class nfs::config::exports (
     mode    => '0755',
     recurse => $purge_unmanaged_exports,
     purge   => $purge_unmanaged_exports,
+    notify  => Service[$server_services],
   }
 
   concat { $exports_file:
