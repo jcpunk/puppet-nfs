@@ -23,6 +23,8 @@
 #   Boolean, should NFS server have NFSv4 support
 # @param server_kerberos_support
 #   Boolean, should NFS server have kerberos support
+# @param server_services
+#   Array of services for any type of NFS server
 # @param exports_file
 #   Full path to your /etc/exports
 # @param exports_d
@@ -43,6 +45,7 @@ class nfs::config (
   $server_nfsv3_support = $nfs::server_nfsv3_support,
   $server_nfsv4_support = $nfs::server_nfsv4_support,
   $server_kerberos_support = $nfs::server_kerberos_support,
+  $server_services = $nfs::server_services,
   $exports_file = $nfs::exports_file,
   $exports_d = $nfs::exports_d,
   $purge_unmanaged_exports = $nfs::purge_unmanaged_exports,
@@ -55,8 +58,16 @@ class nfs::config (
     fail('Requested NFS server, but disabled both v3 and v4 mode')
   }
 
-  if ! $server and $exports != {} {
-    fail('Requested NFS exports but NFS server is not enabled')
+  if ! $server {
+    $filtered_exports = $exports.filter |$name, $data| {
+      $data.dig('dont_sanity_check_export') ? {
+        Boolean => ! $data['dont_sanity_check_export'],
+        default => true,
+      }
+    }
+    if $filtered_exports != {} {
+      fail('Requested NFS exports but NFS server is not enabled, you can add `dont_sanity_check_export` to an export avoid this')
+    }
   }
 
   if $client or $server {

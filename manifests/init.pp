@@ -134,7 +134,7 @@ class nfs (
   Stdlib::Absolutepath $exports_file,
   Stdlib::Absolutepath $exports_d,
   Boolean $purge_unmanaged_exports,
-  Hash[String, Hash[Enum['export_path', 'config_file', 'comment', 'clients'], Variant[String[1], Hash[String, Array[String[1], 1]]]]] $exports,
+  Hash[String, Hash[Enum['export_path','config_file','comment','clients','dont_sanity_check_export'], Variant[String[1], Hash[String, Array[String[1],1]], Boolean]]] $exports,
 
   Stdlib::Absolutepath $idmapd_config_file,
   Hash[String, Hash[String, Data]] $idmapd_config_hash,

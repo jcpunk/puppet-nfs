@@ -85,9 +85,15 @@ Setup a server permitting NFSv3 and NFSv4 along with Kerberos security and GSSPr
 Also setup two exports, but leave any unmanaged files in `/etc/exports.d/`
 
 NOTE: if you drop your own files in `/etc/exports.d/` you should `notify`
-      one of: `Class['nfs']` `Class['nfs::service']` `Class['nfs::service::exportfs']`
+      one of: `Class['nfs']` `Class['nfs::service']` `Class['nfs::service::exportfs']` `File['/etc/exports.d']`
 
 NOTE: if defined, your export fragment will require the listed `File` resource.
+
+NOTE: this class will error out if you define an export but don't set the host
+      to be an NFS server.
+      You can disable this per export with the key `dont_sanity_check_export`.
+      This is handy if you want to setup a generic top level NFS4 rootfs
+      so you don't need to repeat it everywhere.
 
 ```puppet
 class {'nfs':
@@ -107,6 +113,12 @@ class {'nfs':
         '*.example.com' => ['rw', 'sec=krb5', 'no_subtree_check'],
       }
     },
+    '/nfs4root' => {
+      'clients' => {
+        '*' => [ 'ro', 'fsid=0'],
+      },
+      'dont_sanity_check_export' => true,
+    }
     'Detailed Example' => {
       'export_path' => '/my/nfs/path',
       'config_file' => '/etc/exports.d/puppet.exports',
@@ -147,6 +159,12 @@ nfs::exports:
         - rw
         - 'sec=krb5'
         - no_subtree_check
+  '/nfs4root':
+    clients:
+      '*':
+        - ro
+        - fsid=0
+    dont_sanity_check_export: true
   'Detailed Example':
     export_path: /my/nfs/path
     config_file: /etc/exports.d/puppet.exports

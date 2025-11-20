@@ -34,10 +34,11 @@ class { 'nfs':
       },
     },
     'Detailed Example' => {
-      'export_path' => '/my/nfs/path',
-      'config_file' => '/etc/exports.d/puppet.exports',
-      'comment'     => 'Some Optional Free Text',
-      'clients'     => {
+      'export_path'              => '/my/nfs/path',
+      'config_file'              => '/etc/exports.d/puppet.exports',
+      'comment'                  => 'Some Optional Free Text',
+      'dont_sanity_check_export' => true,
+      'clients'                  => {
         '127.0.0.1'     => ['rw', 'no_subtree_check'],
         '*.example.com' => ['rw', 'sec=krb5', 'no_subtree_check'],
       },

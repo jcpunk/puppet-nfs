@@ -38,317 +38,317 @@ to try and keep the behavior self contained
 
 The following parameters are available in the `nfs` class:
 
-* [`client`](#client)
-* [`client_nfsv3_support`](#client_nfsv3_support)
-* [`client_nfsv4_support`](#client_nfsv4_support)
-* [`client_kerberos_support`](#client_kerberos_support)
-* [`manage_client_packages`](#manage_client_packages)
-* [`client_packages`](#client_packages)
-* [`manage_services`](#manage_services)
-* [`client_services`](#client_services)
-* [`client_v3_helper_services`](#client_v3_helper_services)
-* [`client_v4_helper_services`](#client_v4_helper_services)
-* [`client_kerberos_services`](#client_kerberos_services)
-* [`server`](#server)
-* [`server_nfsv3_support`](#server_nfsv3_support)
-* [`server_nfsv4_support`](#server_nfsv4_support)
-* [`server_kerberos_support`](#server_kerberos_support)
-* [`manage_server_packages`](#manage_server_packages)
-* [`server_packages`](#server_packages)
-* [`server_services`](#server_services)
-* [`server_v3_helper_services`](#server_v3_helper_services)
-* [`server_v4_helper_services`](#server_v4_helper_services)
-* [`server_kerberos_services`](#server_kerberos_services)
-* [`use_gssproxy`](#use_gssproxy)
-* [`gssproxy_services`](#gssproxy_services)
-* [`rpcbind_config_opt_file`](#rpcbind_config_opt_file)
-* [`rpcbind_config_opt_key`](#rpcbind_config_opt_key)
-* [`rpcbind_config_opt_values`](#rpcbind_config_opt_values)
-* [`exportfs`](#exportfs)
-* [`exportfs_arguments`](#exportfs_arguments)
-* [`exports_file`](#exports_file)
-* [`exports_d`](#exports_d)
-* [`purge_unmanaged_exports`](#purge_unmanaged_exports)
-* [`exports`](#exports)
-* [`idmapd_config_file`](#idmapd_config_file)
-* [`idmapd_config_hash`](#idmapd_config_hash)
-* [`vendor_idmapd_config_hash`](#vendor_idmapd_config_hash)
-* [`nfs_conf_file`](#nfs_conf_file)
-* [`nfs_conf_d`](#nfs_conf_d)
-* [`purge_unmanaged_nfs_conf_d`](#purge_unmanaged_nfs_conf_d)
-* [`nfs_conf_hash`](#nfs_conf_hash)
-* [`vendor_nfs_conf_hash`](#vendor_nfs_conf_hash)
-* [`nfsmount_conf_file`](#nfsmount_conf_file)
-* [`nfsmount_conf_d`](#nfsmount_conf_d)
-* [`purge_unmanaged_nfsmount_conf_d`](#purge_unmanaged_nfsmount_conf_d)
-* [`nfsmount_conf_hash`](#nfsmount_conf_hash)
-* [`vendor_nfsmount_conf_hash`](#vendor_nfsmount_conf_hash)
+* [`client`](#-nfs--client)
+* [`client_nfsv3_support`](#-nfs--client_nfsv3_support)
+* [`client_nfsv4_support`](#-nfs--client_nfsv4_support)
+* [`client_kerberos_support`](#-nfs--client_kerberos_support)
+* [`manage_client_packages`](#-nfs--manage_client_packages)
+* [`client_packages`](#-nfs--client_packages)
+* [`manage_services`](#-nfs--manage_services)
+* [`client_services`](#-nfs--client_services)
+* [`client_v3_helper_services`](#-nfs--client_v3_helper_services)
+* [`client_v4_helper_services`](#-nfs--client_v4_helper_services)
+* [`client_kerberos_services`](#-nfs--client_kerberos_services)
+* [`server`](#-nfs--server)
+* [`server_nfsv3_support`](#-nfs--server_nfsv3_support)
+* [`server_nfsv4_support`](#-nfs--server_nfsv4_support)
+* [`server_kerberos_support`](#-nfs--server_kerberos_support)
+* [`manage_server_packages`](#-nfs--manage_server_packages)
+* [`server_packages`](#-nfs--server_packages)
+* [`server_services`](#-nfs--server_services)
+* [`server_v3_helper_services`](#-nfs--server_v3_helper_services)
+* [`server_v4_helper_services`](#-nfs--server_v4_helper_services)
+* [`server_kerberos_services`](#-nfs--server_kerberos_services)
+* [`use_gssproxy`](#-nfs--use_gssproxy)
+* [`gssproxy_services`](#-nfs--gssproxy_services)
+* [`rpcbind_config_opt_file`](#-nfs--rpcbind_config_opt_file)
+* [`rpcbind_config_opt_key`](#-nfs--rpcbind_config_opt_key)
+* [`rpcbind_config_opt_values`](#-nfs--rpcbind_config_opt_values)
+* [`exportfs`](#-nfs--exportfs)
+* [`exportfs_arguments`](#-nfs--exportfs_arguments)
+* [`exports_file`](#-nfs--exports_file)
+* [`exports_d`](#-nfs--exports_d)
+* [`purge_unmanaged_exports`](#-nfs--purge_unmanaged_exports)
+* [`exports`](#-nfs--exports)
+* [`idmapd_config_file`](#-nfs--idmapd_config_file)
+* [`idmapd_config_hash`](#-nfs--idmapd_config_hash)
+* [`vendor_idmapd_config_hash`](#-nfs--vendor_idmapd_config_hash)
+* [`nfs_conf_file`](#-nfs--nfs_conf_file)
+* [`nfs_conf_d`](#-nfs--nfs_conf_d)
+* [`purge_unmanaged_nfs_conf_d`](#-nfs--purge_unmanaged_nfs_conf_d)
+* [`nfs_conf_hash`](#-nfs--nfs_conf_hash)
+* [`vendor_nfs_conf_hash`](#-nfs--vendor_nfs_conf_hash)
+* [`nfsmount_conf_file`](#-nfs--nfsmount_conf_file)
+* [`nfsmount_conf_d`](#-nfs--nfsmount_conf_d)
+* [`purge_unmanaged_nfsmount_conf_d`](#-nfs--purge_unmanaged_nfsmount_conf_d)
+* [`nfsmount_conf_hash`](#-nfs--nfsmount_conf_hash)
+* [`vendor_nfsmount_conf_hash`](#-nfs--vendor_nfsmount_conf_hash)
 
-##### <a name="client"></a>`client`
+##### <a name="-nfs--client"></a>`client`
 
 Data type: `Boolean`
 
 Boolean, should this host be an NFS client
 
-##### <a name="client_nfsv3_support"></a>`client_nfsv3_support`
+##### <a name="-nfs--client_nfsv3_support"></a>`client_nfsv3_support`
 
 Data type: `Boolean`
 
 Boolean, should NFS client have NFSv3 support
 
-##### <a name="client_nfsv4_support"></a>`client_nfsv4_support`
+##### <a name="-nfs--client_nfsv4_support"></a>`client_nfsv4_support`
 
 Data type: `Boolean`
 
 Boolean, should NFS client have NFSv4 support
 
-##### <a name="client_kerberos_support"></a>`client_kerberos_support`
+##### <a name="-nfs--client_kerberos_support"></a>`client_kerberos_support`
 
 Data type: `Boolean`
 
 Boolean, should NFS client have kerberos support
 
-##### <a name="manage_client_packages"></a>`manage_client_packages`
+##### <a name="-nfs--manage_client_packages"></a>`manage_client_packages`
 
 Data type: `Boolean`
 
 Boolean, should this module manage the NFS client packages
 
-##### <a name="client_packages"></a>`client_packages`
+##### <a name="-nfs--client_packages"></a>`client_packages`
 
 Data type: `Array[String[1]]`
 
 Array of packages for NFS clients
 
-##### <a name="manage_services"></a>`manage_services`
+##### <a name="-nfs--manage_services"></a>`manage_services`
 
 Data type: `Boolean`
 
 Boolean, should this module manage the NFS services
 
-##### <a name="client_services"></a>`client_services`
+##### <a name="-nfs--client_services"></a>`client_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for any type of NFS client
 
-##### <a name="client_v3_helper_services"></a>`client_v3_helper_services`
+##### <a name="-nfs--client_v3_helper_services"></a>`client_v3_helper_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for NFSv3 clients
 
-##### <a name="client_v4_helper_services"></a>`client_v4_helper_services`
+##### <a name="-nfs--client_v4_helper_services"></a>`client_v4_helper_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for NFSv4 clients
 
-##### <a name="client_kerberos_services"></a>`client_kerberos_services`
+##### <a name="-nfs--client_kerberos_services"></a>`client_kerberos_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for NFS kerberos clients
 
-##### <a name="server"></a>`server`
+##### <a name="-nfs--server"></a>`server`
 
 Data type: `Boolean`
 
 Boolean, should this host be an NFS server
 
-##### <a name="server_nfsv3_support"></a>`server_nfsv3_support`
+##### <a name="-nfs--server_nfsv3_support"></a>`server_nfsv3_support`
 
 Data type: `Boolean`
 
 Boolean, should NFS server have NFSv3 support
 
-##### <a name="server_nfsv4_support"></a>`server_nfsv4_support`
+##### <a name="-nfs--server_nfsv4_support"></a>`server_nfsv4_support`
 
 Data type: `Boolean`
 
 Boolean, should NFS server have NFSv4 support
 
-##### <a name="server_kerberos_support"></a>`server_kerberos_support`
+##### <a name="-nfs--server_kerberos_support"></a>`server_kerberos_support`
 
 Data type: `Boolean`
 
 Boolean, should NFS server have kerberos support
 
-##### <a name="manage_server_packages"></a>`manage_server_packages`
+##### <a name="-nfs--manage_server_packages"></a>`manage_server_packages`
 
 Data type: `Boolean`
 
 Boolean, should this module manage the NFS server packages
 
-##### <a name="server_packages"></a>`server_packages`
+##### <a name="-nfs--server_packages"></a>`server_packages`
 
 Data type: `Array[String[1]]`
 
 Array of packages for NFS servers
 
-##### <a name="server_services"></a>`server_services`
+##### <a name="-nfs--server_services"></a>`server_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for any type of NFS server
 
-##### <a name="server_v3_helper_services"></a>`server_v3_helper_services`
+##### <a name="-nfs--server_v3_helper_services"></a>`server_v3_helper_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for NFSv3 servers
 
-##### <a name="server_v4_helper_services"></a>`server_v4_helper_services`
+##### <a name="-nfs--server_v4_helper_services"></a>`server_v4_helper_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for NFSv4 servers
 
-##### <a name="server_kerberos_services"></a>`server_kerberos_services`
+##### <a name="-nfs--server_kerberos_services"></a>`server_kerberos_services`
 
 Data type: `Array[Systemd::Unit]`
 
 Array of services for NFS kerberos servers
 
-##### <a name="use_gssproxy"></a>`use_gssproxy`
+##### <a name="-nfs--use_gssproxy"></a>`use_gssproxy`
 
 Data type: `Boolean`
 
 Boolean, should GSSProxy be configured (via the gssproxy module)
 
-##### <a name="gssproxy_services"></a>`gssproxy_services`
+##### <a name="-nfs--gssproxy_services"></a>`gssproxy_services`
 
 Data type: `Hash[String, Variant[Data, Array[String[1]], Undef]]`
 
 Hash of GSSProxy services to define
 
-##### <a name="rpcbind_config_opt_file"></a>`rpcbind_config_opt_file`
+##### <a name="-nfs--rpcbind_config_opt_file"></a>`rpcbind_config_opt_file`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to file sourced by the rpcbind.service
 
-##### <a name="rpcbind_config_opt_key"></a>`rpcbind_config_opt_key`
+##### <a name="-nfs--rpcbind_config_opt_key"></a>`rpcbind_config_opt_key`
 
 Data type: `String`
 
 String listing the Env Var used by rpcbind.service to set options
 
-##### <a name="rpcbind_config_opt_values"></a>`rpcbind_config_opt_values`
+##### <a name="-nfs--rpcbind_config_opt_values"></a>`rpcbind_config_opt_values`
 
 Data type: `Array`
 
 Array of arguments to set on rpcbind
 
-##### <a name="exportfs"></a>`exportfs`
+##### <a name="-nfs--exportfs"></a>`exportfs`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to the exportfs command
 
-##### <a name="exportfs_arguments"></a>`exportfs_arguments`
+##### <a name="-nfs--exportfs_arguments"></a>`exportfs_arguments`
 
 Data type: `Array[String]`
 
 Array of arguments to use with exportfs
 
-##### <a name="exports_file"></a>`exports_file`
+##### <a name="-nfs--exports_file"></a>`exports_file`
 
 Data type: `Stdlib::Absolutepath`
 
 Full path to your /etc/exports
 
-##### <a name="exports_d"></a>`exports_d`
+##### <a name="-nfs--exports_d"></a>`exports_d`
 
 Data type: `Stdlib::Absolutepath`
 
 Full path to your /etc/exports.d/
 
-##### <a name="purge_unmanaged_exports"></a>`purge_unmanaged_exports`
+##### <a name="-nfs--purge_unmanaged_exports"></a>`purge_unmanaged_exports`
 
 Data type: `Boolean`
 
 Boolean, Should unmanaged files in /etc/exports.d/ be removed?
 
-##### <a name="exports"></a>`exports`
+##### <a name="-nfs--exports"></a>`exports`
 
-Data type: `Hash[String, Hash[Enum['export_path', 'config_file', 'comment', 'clients'], Variant[String[1], Hash[String, Array[String[1], 1]]]]]`
+Data type: `Hash[String, Hash[Enum['export_path','config_file','comment','clients','dont_sanity_check_export'], Variant[String[1], Hash[String, Array[String[1],1]], Boolean]]]`
 
 Hash of NFS exports to create, see examples for structure
 
-##### <a name="idmapd_config_file"></a>`idmapd_config_file`
+##### <a name="-nfs--idmapd_config_file"></a>`idmapd_config_file`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your /etc/idmapd.conf
 
-##### <a name="idmapd_config_hash"></a>`idmapd_config_hash`
+##### <a name="-nfs--idmapd_config_hash"></a>`idmapd_config_hash`
 
 Data type: `Hash[String, Hash[String, Data]]`
 
 Hash of settings you want in /etc/idmapd.conf
 
-##### <a name="vendor_idmapd_config_hash"></a>`vendor_idmapd_config_hash`
+##### <a name="-nfs--vendor_idmapd_config_hash"></a>`vendor_idmapd_config_hash`
 
 Data type: `Hash[String, Hash[String, Data]]`
 
 Hash of vendor default settings in /etc/idmapd.conf
 
-##### <a name="nfs_conf_file"></a>`nfs_conf_file`
+##### <a name="-nfs--nfs_conf_file"></a>`nfs_conf_file`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your /etc/nfs.conf
 
-##### <a name="nfs_conf_d"></a>`nfs_conf_d`
+##### <a name="-nfs--nfs_conf_d"></a>`nfs_conf_d`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your /etc/nfs.conf.d
 
-##### <a name="purge_unmanaged_nfs_conf_d"></a>`purge_unmanaged_nfs_conf_d`
+##### <a name="-nfs--purge_unmanaged_nfs_conf_d"></a>`purge_unmanaged_nfs_conf_d`
 
 Data type: `Boolean`
 
 Boolean, remove any unmanaged files in /etc/nfs.conf.d
 
-##### <a name="nfs_conf_hash"></a>`nfs_conf_hash`
+##### <a name="-nfs--nfs_conf_hash"></a>`nfs_conf_hash`
 
 Data type: `Hash[String, Hash[String, Data]]`
 
 Hash of settings you want in /etc/nfs.conf
 
-##### <a name="vendor_nfs_conf_hash"></a>`vendor_nfs_conf_hash`
+##### <a name="-nfs--vendor_nfs_conf_hash"></a>`vendor_nfs_conf_hash`
 
 Data type: `Hash[String, Hash[String, Data]]`
 
 Hash of vendor default settings in /etc/nfs.conf
 
-##### <a name="nfsmount_conf_file"></a>`nfsmount_conf_file`
+##### <a name="-nfs--nfsmount_conf_file"></a>`nfsmount_conf_file`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your /etc/nfsmount.conf
 
-##### <a name="nfsmount_conf_d"></a>`nfsmount_conf_d`
+##### <a name="-nfs--nfsmount_conf_d"></a>`nfsmount_conf_d`
 
 Data type: `Stdlib::Absolutepath`
 
 Path to your /etc/nfsmount.conf.d
 
-##### <a name="purge_unmanaged_nfsmount_conf_d"></a>`purge_unmanaged_nfsmount_conf_d`
+##### <a name="-nfs--purge_unmanaged_nfsmount_conf_d"></a>`purge_unmanaged_nfsmount_conf_d`
 
 Data type: `Boolean`
 
 Boolean, remove any unmanaged files in /etc/nfsmount.conf.d
 
-##### <a name="nfsmount_conf_hash"></a>`nfsmount_conf_hash`
+##### <a name="-nfs--nfsmount_conf_hash"></a>`nfsmount_conf_hash`
 
 Data type: `Hash[String, Variant[Hash[String, Data], Undef]]`
 
 Hash of settings you want in /etc/nfsmount.conf
 
-##### <a name="vendor_nfsmount_conf_hash"></a>`vendor_nfsmount_conf_hash`
+##### <a name="-nfs--vendor_nfsmount_conf_hash"></a>`vendor_nfsmount_conf_hash`
 
 Data type: `Hash[String, Hash[String, Data]]`
 

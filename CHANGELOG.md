@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.5.0
+
+**Features**
+
+Exports now automatically track related mount resources.
+Added notify on `/etc/exports.d` for another refresh point
+Added optional key to let exports be defined on non-servers
+
 ## Release 0.4.0
 
 **Features**
